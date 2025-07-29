@@ -3,9 +3,11 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { useState } from "react";
 
 const ProjectsSection = () => {
   const { ref, hasIntersected } = useIntersectionObserver();
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   
   const projects = [
     {
@@ -34,75 +36,133 @@ const ProjectsSection = () => {
     <section 
       ref={ref}
       id="projetos" 
-      className={`py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-muted/30 transition-all duration-1000 ${
+      className={`relative py-20 sm:py-24 md:pt-16 md:pb-32 px-4 sm:px-6 aurora-bg overflow-hidden transition-all duration-1000 ${
         hasIntersected ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
     >
-      <div className="container mx-auto max-w-7xl">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-heading text-center mb-12 sm:mb-16">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+      </div>
+      
+      <div className="container mx-auto max-w-7xl relative z-10">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold gradient-text-primary text-center mb-20 sm:mb-24 tracking-tight leading-tight">
           Projetos
         </h2>
         
-        <div className="grid grid-cols-1 gap-8 sm:gap-12 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
           {projects.map((project, index) => (
-            <Card key={project.id} className={`h-full flex flex-col md:flex-row hover:translate-y-[-4px] hover:shadow-xl transition-all duration-300 ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
-              <CardHeader className="p-0 md:w-2/5">
-                <div className="w-full h-48 md:h-full bg-muted rounded-t-lg md:rounded-l-lg md:rounded-tr-none flex items-center justify-center overflow-hidden">
-                  <img 
-                    src={project.image} 
-                    alt={`${project.name} preview`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </CardHeader>
-              
-              <CardContent className="p-8 flex-1 flex flex-col md:w-3/5">
-                <div className="mb-6">
-                  <h3 className="text-2xl font-bold text-heading mb-3">
-                    {project.name}
-                  </h3>
-                  <p className="text-primary font-medium mb-4">
-                    {project.subtitle}
-                  </p>
-                  <p className="text-muted-foreground leading-relaxed text-sm line-clamp-3">
-                    {project.description}
-                  </p>
-                </div>
-                
-                <div className="mb-6">
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.slice(0, 6).map((tech) => (
-                      <Badge key={tech} variant="outline" className="text-xs px-2 py-1 bg-primary/5 text-primary border-primary/20 hover:bg-primary/10 transition-colors">
-                        {tech}
-                      </Badge>
-                    ))}
+            <div
+              key={project.id}
+              className={`group relative transition-all duration-500 ease-out ${
+                hoveredCard === project.id 
+                  ? 'transform rotate-1 scale-105 z-20' 
+                  : 'transform rotate-0 scale-100 z-10'
+              }`}
+              onMouseEnter={() => setHoveredCard(project.id)}
+              onMouseLeave={() => setHoveredCard(null)}
+              style={{
+                perspective: '1000px',
+                transformStyle: 'preserve-3d'
+              }}
+            >
+              <Card className={`glass-subtle hover:glass border-0 overflow-hidden transition-all duration-500 h-full flex flex-col ${
+                hoveredCard === project.id 
+                  ? 'glow-primary shadow-2xl shadow-primary/20' 
+                  : 'shadow-lg'
+              }`}>
+                {/* Project Image */}
+                <CardHeader className="p-0 relative overflow-hidden">
+                  <div className="w-full h-64 bg-gradient-to-br from-muted/50 to-muted/80 flex items-center justify-center overflow-hidden relative">
+                    <img 
+                      src={project.image} 
+                      alt={`${project.name} preview`}
+                      className={`w-full h-full object-cover transition-transform duration-500 ${
+                        hoveredCard === project.id ? 'scale-110' : 'scale-100'
+                      }`}
+                    />
+                    {/* Overlay gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent" />
                   </div>
-                </div>
+                </CardHeader>
                 
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-auto">
-                  {project.liveUrl ? (
-                    <Button asChild className="flex-1 h-11 sm:h-10">
-                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                <CardContent className="p-6 flex-1 flex flex-col">
+                  {/* Project Info */}
+                  <div className="mb-6">
+                    <h3 className="text-xl font-bold text-heading mb-2 group-hover:gradient-text-primary transition-all duration-300">
+                      {project.name}
+                    </h3>
+                    <p className="text-primary font-medium mb-3 text-sm">
+                      {project.subtitle}
+                    </p>
+                    <p className="text-muted-foreground leading-relaxed text-sm line-clamp-3">
+                      {project.description}
+                    </p>
+                  </div>
+                  
+                  {/* Tech Stack */}
+                  <div className="mb-6">
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.slice(0, 4).map((tech) => (
+                        <Badge 
+                          key={tech} 
+                          variant="outline" 
+                          className="text-xs px-2 py-1 glass-subtle border-primary/20 text-primary hover:glass hover:glow-primary transition-all duration-300"
+                        >
+                          {tech}
+                        </Badge>
+                      ))}
+                      {project.technologies.length > 4 && (
+                        <Badge 
+                          variant="outline" 
+                          className="text-xs px-2 py-1 glass-subtle border-muted-foreground/20 text-muted-foreground"
+                        >
+                          +{project.technologies.length - 4}
+                        </Badge>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* Action Buttons */}
+                  <div className="flex gap-3 mt-auto">
+                    {project.liveUrl ? (
+                      <Button 
+                        asChild 
+                        size="sm"
+                        className="flex-1 glass-subtle hover:glass hover:glow-primary border-0 bg-gradient-to-r from-primary/80 to-accent/80 hover:from-primary hover:to-accent transition-all duration-300"
+                      >
+                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          Ver ao Vivo
+                        </a>
+                      </Button>
+                    ) : (
+                      <Button 
+                        disabled 
+                        size="sm"
+                        className="flex-1 opacity-50 cursor-not-allowed"
+                      >
                         <ExternalLink className="w-4 h-4 mr-2" />
                         Ver ao Vivo
+                      </Button>
+                    )}
+                    
+                    <Button 
+                      variant="outline" 
+                      asChild 
+                      size="sm"
+                      className="flex-1 glass-subtle hover:glass hover:glow-primary border-primary/20 hover:border-primary/40 transition-all duration-300"
+                    >
+                      <a href={project.codeUrl} target="_blank" rel="noopener noreferrer">
+                        <Github className="w-4 h-4 mr-2" />
+                        Ver Código
                       </a>
                     </Button>
-                  ) : (
-                    <Button disabled className="flex-1 h-11 sm:h-10 opacity-50 cursor-not-allowed">
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Ver ao Vivo
-                    </Button>
-                  )}
-                  
-                  <Button variant="outline" asChild className="flex-1 h-11 sm:h-10">
-                    <a href={project.codeUrl} target="_blank" rel="noopener noreferrer">
-                      <Github className="w-4 h-4 mr-2" />
-                      Ver Código
-                    </a>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           ))}
         </div>
       </div>

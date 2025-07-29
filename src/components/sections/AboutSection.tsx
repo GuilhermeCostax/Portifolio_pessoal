@@ -1,8 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Download, User, Code, Lightbulb } from "lucide-react";
+import { Download } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
-import { useAnimations } from "@/hooks/useAnimations";
 
 const AboutSection = () => {
   const { ref, hasIntersected } = useIntersectionObserver();
@@ -11,50 +9,78 @@ const AboutSection = () => {
     <section 
       ref={ref}
       id="sobre" 
-      className={`py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-muted/30 transition-all duration-1000 ${
+      className={`relative py-20 md:pt-32 md:pb-16 px-4 sm:px-6 aurora-bg overflow-hidden transition-all duration-1000 ${
         hasIntersected ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
     >
-      <div className="container mx-auto max-w-6xl">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-heading text-center mb-12 sm:mb-16">
-          Sobre Mim
-        </h2>
+      {/* Background Decorative Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-indigo-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-purple-400/20 to-indigo-600/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-indigo-300/10 to-purple-300/10 rounded-full blur-3xl animate-pulse" />
+      </div>
+      <div className="relative container mx-auto max-w-7xl">
+        <div className="text-center mb-16 md:mb-20">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 animate-pulse" />
+            <h2 className="text-4xl md:text-6xl font-bold gradient-text-primary tracking-tight leading-tight">
+              Sobre Mim
+            </h2>
+            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-indigo-500 animate-pulse" />
+          </div>
+        </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center max-w-5xl mx-auto">
-          <div className="flex justify-center md:justify-end order-1 md:order-none">
-            <div className="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-3 border-primary/15 shadow-md">
-              <img 
-                src="/images/profile/EU.jpeg" 
-                alt="Guilherme Costa - Foto Profissional"
-                className="w-full h-full object-cover object-center"
-              />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Photo Column */}
+          <div className="flex justify-center lg:justify-end order-1 lg:order-none">
+            <div className="relative group">
+              {/* Glowing Border Animation */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-600 to-indigo-500 rounded-[3rem] blur-sm opacity-75 group-hover:opacity-100 animate-pulse transition duration-1000 group-hover:duration-200" />
+              
+              {/* Photo Container - Squircle Shape */}
+              <div className="relative w-80 h-80 md:w-96 md:h-96 rounded-[3rem] overflow-hidden bg-gradient-to-br from-white/90 to-white/70 dark:from-slate-800/90 dark:to-slate-900/70 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-2xl">
+                <img 
+                  src="/images/profile/EU.jpeg" 
+                  alt="Guilherme Costa - Foto Profissional"
+                  className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                />
+                
+                {/* Inner Glow Effect */}
+                <div className="absolute inset-0 bg-gradient-to-t from-indigo-500/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
             </div>
           </div>
           
-          <div className="space-y-6 sm:space-y-8 order-2 md:order-none">
-            <div className="space-y-4 sm:space-y-6 text-sm sm:text-base leading-relaxed text-foreground text-center md:text-left">
-              <p>
-                Sou Guilherme, estudante de Engenharia de Software na PUC Minas e um desenvolvedor apaixonado por transformar desafios complexos em soluções de software eficientes.
-              </p>
+          {/* Content Column */}
+          <div className="order-2 lg:order-none">
+            <div className="glass-ultra rounded-3xl p-8 md:p-10 border border-white/20 dark:border-white/10 shadow-2xl hover:shadow-indigo-500/10 dark:hover:shadow-indigo-400/10 transition-all duration-500">
+              <div className="space-y-6 text-base md:text-lg leading-relaxed text-slate-700 dark:text-slate-300">
+                <p className="text-center lg:text-left">
+                  Sou <span className="font-semibold text-slate-800 dark:text-slate-200">Guilherme</span>, estudante de Engenharia de Software na PUC Minas e um desenvolvedor apaixonado por transformar desafios complexos em soluções de software eficientes.
+                </p>
+                
+                <p className="text-center lg:text-left">
+                  Com um foco intenso em aprendizado prático, desenvolvi e implantei aplicações full-stack utilizando um ecossistema moderno com <span className="font-medium text-indigo-600 dark:text-indigo-400">React/Next.js</span> no frontend e <span className="font-medium text-purple-600 dark:text-purple-400">Python/FastAPI</span> no backend. Minha abordagem envolve o uso estratégico de ferramentas de IA para acelerar a prototipagem e a arquitetura, permitindo-me focar na integração, na lógica de negócio e na entrega de produtos robustos em tempo recorde.
+                </p>
+                
+                <p className="text-center lg:text-left">
+                  Atualmente, estou aprofundando minhas habilidades na otimização e codificação manual de componentes, buscando minha primeira oportunidade para aplicar minha visão sistêmica e minha dedicação para contribuir com uma equipe inovadora.
+                </p>
+              </div>
               
-              <p>
-                Com um foco intenso em aprendizado prático, desenvolvi e implantei aplicações full-stack utilizando um ecossistema moderno com React/Next.js no frontend e Python/FastAPI no backend. Minha abordagem envolve o uso estratégico de ferramentas de IA para acelerar a prototipagem e a arquitetura, permitindo-me focar na integração, na lógica de negócio e na entrega de produtos robustos em tempo recorde.
-              </p>
-              
-              <p>
-                Atualmente, estou aprofundando minhas habilidades na otimização e codificação manual de componentes, buscando minha primeira oportunidade para aplicar minha visão sistêmica e minha dedicação para contribuir com uma equipe inovadora.
-              </p>
-            </div>
-            
-            <div className="pt-4 sm:pt-6 flex justify-center md:justify-start">
-              <Button 
-                variant="outline" 
-                size="lg" 
-                disabled
-                className="px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg opacity-50 cursor-not-allowed h-12 sm:h-auto"
-              >
-                Download CV (Em breve)
-              </Button>
+              {/* Download CV Button */}
+              <div className="pt-8 flex justify-center lg:justify-start">
+                <button 
+                  disabled
+                  className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed overflow-hidden"
+                >
+                  {/* Button Background Glow */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  <Download className="w-5 h-5 relative z-10" />
+                  <span className="relative z-10">Download CV (Em breve)</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
