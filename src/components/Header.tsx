@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -28,7 +29,15 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
   const scrollToSection = (sectionId: string) => {
+    if (!isHomePage) {
+      // Se não estiver na página inicial, navegar para lá primeiro
+      window.location.href = `/#${sectionId}`;
+      return;
+    }
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -63,6 +72,13 @@ const Header = () => {
               <Button variant="ghost" onClick={() => scrollToSection('habilidades')} className="text-foreground hover:text-primary px-4 py-2">
                 Habilidades
               </Button>
+              <Link 
+                to="/servicos"
+                className="text-foreground hover:text-primary transition-colors duration-300 font-medium px-4 py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Serviços
+              </Link>
               <Button variant="ghost" onClick={() => scrollToSection('contato')} className="text-foreground hover:text-primary px-4 py-2">
                 Contato
               </Button>
@@ -119,6 +135,13 @@ const Header = () => {
               >
                 Habilidades
               </Button>
+              <Link 
+                to="/servicos"
+                className="text-foreground hover:text-primary transition-colors duration-300 font-medium text-left h-12 px-4 text-base flex items-center"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Serviços
+              </Link>
               <Button 
                 variant="ghost" 
                 onClick={() => scrollToSection('contato')} 
