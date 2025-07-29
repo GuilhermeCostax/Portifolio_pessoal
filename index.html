@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guilherme Costa - Desenvolvedor Full Stack</title>
+    <meta name="description" content="Portfólio de Guilherme Costa - Desenvolvedor Full Stack especializado em React, Node.js e tecnologias modernas" />
+    <meta name="author" content="Guilherme Costa" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+
+    <meta property="og:title" content="Guilherme Costa - Desenvolvedor Full Stack" />
+    <meta property="og:description" content="Portfólio de Guilherme Costa - Desenvolvedor Full Stack especializado em React, Node.js e tecnologias modernas" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@guilherme_dev" />
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    
+    <!-- Theme Script - Prevents flash of wrong theme -->
+    <script>
+      (function() {
+        const theme = localStorage.getItem('theme') || 'system';
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        const actualTheme = theme === 'system' ? systemTheme : theme;
+        
+        document.documentElement.classList.add(actualTheme);
+        document.documentElement.style.colorScheme = actualTheme;
+      })();
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
