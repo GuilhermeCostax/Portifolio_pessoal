@@ -6,22 +6,43 @@
 
 Este é o portfólio pessoal de Guilherme Francisco Costa, desenvolvedor e estudante de Engenharia de Software na PUC Minas. O projeto foi construído com foco em performance, acessibilidade e experiência do usuário, utilizando as mais modernas tecnologias do ecossistema React.
 
+### 🆕 Versão 2.0.0 - Otimizações Implementadas
+- **Refatoração Completa**: Eliminação de código duplicado e componentes não utilizados
+- **Hook Personalizado**: `useScrollToSection` para centralizar lógica de navegação
+- **Bundle Otimizado**: Remoção de dependências desnecessárias (cmdk, next-themes)
+- **Performance Melhorada**: Redução significativa do tamanho do bundle
+- **Código Limpo**: Melhoria na manutenibilidade e organização
+
 ## 🏗️ Arquitetura e Padrões
 
 ### Estrutura do Projeto
 ```
 src/
 ├── components/          # Componentes reutilizáveis
-│   ├── ui/             # Componentes base do shadcn/ui
+│   ├── ui/             # Componentes base do shadcn/ui (otimizados)
 │   ├── sections/       # Seções específicas do portfólio
+│   ├── skeletons/      # Componentes de loading
 │   ├── Header.tsx      # Navegação principal
-│   └── Footer.tsx      # Rodapé com links sociais
+│   ├── Footer.tsx      # Rodapé com links sociais
+│   ├── ThemeToggle.tsx # Alternador de tema
+│   └── ThemeTransition.tsx # Transições de tema
 ├── pages/              # Páginas da aplicação
 │   ├── Index.tsx       # Página principal
-│   └── NotFound.tsx    # Página 404
+│   ├── NotFound.tsx    # Página 404
+│   └── Servicos.tsx    # Página de serviços
 ├── hooks/              # Hooks personalizados
+│   ├── useScrollToSection.ts # Hook para navegação suave
+│   ├── useIntersectionObserver.ts # Observer de elementos
+│   ├── useLoadingState.ts # Gerenciamento de loading
+│   └── useSystemTheme.ts # Detecção de tema do sistema
+├── contexts/           # Contextos React
+│   └── ThemeContext.tsx # Contexto de tema personalizado
+├── services/           # Serviços e utilitários
+│   ├── themeDom.ts     # Manipulação DOM do tema
+│   └── themeStorage.ts # Persistência de tema
 ├── lib/                # Utilitários e configurações
-└── styles/             # Estilos globais
+├── constants/          # Constantes da aplicação
+└── types/              # Definições de tipos TypeScript
 ```
 
 ### Padrões Arquiteturais
@@ -41,15 +62,17 @@ src/
 
 ### Styling & UI
 - **Tailwind CSS** - Framework CSS utilitário
-- **shadcn/ui** - Componentes acessíveis e customizáveis
+- **shadcn/ui** - Componentes acessíveis e customizáveis (otimizados)
 - **Radix UI** - Primitivos de UI headless
 - **Lucide React** - Ícones SVG otimizados
 - **class-variance-authority** - Gerenciamento de variantes de componentes
+- **clsx & tailwind-merge** - Utilitários para classes CSS
 
 ### State Management & Data
 - **TanStack Query** - Gerenciamento de estado servidor
-- **React Hook Form** - Formulários performáticos
-- **Zod** - Validação de schemas
+- **EmailJS** - Integração para formulário de contato
+- **Sonner** - Sistema de notificações toast
+- **Contexto Personalizado** - Gerenciamento de tema sem dependências externas
 
 ### Developer Experience
 - **ESLint** - Linting de código
@@ -84,12 +107,15 @@ src/
 5. **Contact Section**: Formulário de contato e redes sociais
 
 ### Recursos Técnicos
-- **Navegação Suave**: Scroll suave entre seções
+- **Navegação Suave**: Hook personalizado `useScrollToSection` para scroll otimizado
 - **Header Dinâmico**: Mudança de estilo baseada no scroll
-- **Formulário Funcional**: Validação e feedback visual
-- **Toast Notifications**: Feedback de ações do usuário
+- **Formulário Funcional**: Integração com EmailJS e validação completa
+- **Toast Notifications**: Sistema Sonner para feedback do usuário
+- **Tema Personalizado**: Sistema de tema próprio sem dependências externas
+- **Loading States**: Componentes skeleton para melhor UX
+- **Intersection Observer**: Detecção de elementos visíveis
 - **Responsive Design**: Adaptação para todos os dispositivos
-- **Performance Otimizada**: Lazy loading e otimizações de bundle
+- **Performance Otimizada**: Bundle reduzido e lazy loading
 
 ## 🚀 Como Executar
 
@@ -116,8 +142,10 @@ npm run dev
 **Todas as dependências são instaladas automaticamente** com o comando `npm install`. Isso inclui:
 - Dependências principais (React, TypeScript, etc.)
 - Dependências de UI (shadcn/ui, Radix UI, etc.)
-- Dependências de tema (next-themes)
+- Dependências otimizadas (EmailJS, Sonner, etc.)
 - Dependências de desenvolvimento (Vite, ESLint, etc.)
+
+**Projeto Otimizado v2.0.0**: Removidas dependências desnecessárias como `cmdk` e `next-themes`, resultando em um bundle mais leve e melhor performance. O sistema de tema agora utiliza contexto personalizado.
 
 **Não é necessário instalar dependências adicionais** após clonar o projeto. O `package.json` já contém todas as dependências necessárias para o funcionamento completo do portfólio.
 
@@ -151,10 +179,14 @@ Organizadas em categorias:
 ## 🎯 Destaques Técnicos
 
 ### Performance
+- **Bundle Otimizado**: Remoção de dependências desnecessárias (v2.0.0)
 - **Bundle Splitting**: Carregamento otimizado de recursos
 - **Tree Shaking**: Eliminação de código não utilizado
+- **Hook Personalizado**: `useScrollToSection` elimina duplicação de código
+- **Componentes Limpos**: Remoção de componentes UI não utilizados
 - **Image Optimization**: Imagens otimizadas e lazy loading
 - **CSS Purging**: Remoção de CSS não utilizado
+- **Tema Eficiente**: Sistema de tema sem dependências externas
 
 ### Acessibilidade
 - **WCAG 2.1**: Conformidade com diretrizes de acessibilidade
@@ -170,7 +202,7 @@ Organizadas em categorias:
 ## 🔧 Customização
 
 ### Temas
-O sistema de temas utiliza CSS Variables, permitindo fácil customização:
+O sistema de temas v2.0.0 utiliza contexto personalizado e CSS Variables:
 ```css
 :root {
   --primary: 210 100% 40%;     /* Cor primária */
@@ -179,6 +211,12 @@ O sistema de temas utiliza CSS Variables, permitindo fácil customização:
   /* ... outras variáveis */
 }
 ```
+
+**Melhorias v2.0.0**:
+- Sistema de tema próprio sem dependências externas
+- Melhor performance e controle
+- Transições suaves entre temas
+- Persistência local otimizada
 
 ### Componentes
 Todos os componentes seguem o padrão shadcn/ui e podem ser customizados via:
