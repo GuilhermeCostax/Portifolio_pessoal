@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -7,9 +7,15 @@ import { Label } from "@/components/ui/label";
 import { Github, Linkedin, Mail, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { sendContactEmail, initEmailJS, isEmailJSConfigured, type ContactFormData } from "@/lib/emailjs";
 
 const ContactSection = () => {
   const { ref, hasIntersected } = useIntersectionObserver();
+  
+  // Inicializar EmailJS quando o componente montar
+  useEffect(() => {
+    initEmailJS();
+  }, []);
   
   const [formData, setFormData] = useState({
     name: "",
@@ -24,7 +30,7 @@ const ContactSection = () => {
   });
   const { toast } = useToast();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -40,7 +46,7 @@ const ContactSection = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     
     // Validação
@@ -63,16 +69,42 @@ const ContactSection = () => {
 
     setIsLoading(true);
     
-    // Simular envio do formulário
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    toast({
-      title: "Mensagem enviada!",
-      description: "Obrigado pelo contato. Em breve retornarei sua mensagem.",
-    });
-    
-    setFormData({ name: "", email: "", message: "" });
-    setIsLoading(false);
+    try {
+      // Enviar email usando EmailJS
+      const emailData: ContactFormData = {
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        message: formData.message.trim()
+      };
+      
+      const success = await sendContactEmail(emailData);
+      
+      if (success) {
+        toast({
+          title: "Mensagem enviada com sucesso!",
+          description: "Obrigado pelo contato. Em breve retornarei sua mensagem.",
+        });
+        
+        // Limpar formulário apenas se o envio foi bem-sucedido
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        throw new Error('Falha no envio do email');
+      }
+    } catch (error) {
+      console.error('Erro ao enviar mensagem:', error);
+      
+      const errorMessage = !isEmailJSConfigured() 
+        ? "EmailJS não está configurado. Entre em contato diretamente pelo email."
+        : "Ocorreu um erro ao enviar sua mensagem. Tente novamente ou entre em contato diretamente pelo email.";
+        
+      toast({
+        title: "Erro ao enviar mensagem",
+        description: errorMessage,
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
