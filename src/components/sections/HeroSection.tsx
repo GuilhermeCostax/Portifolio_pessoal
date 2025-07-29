@@ -1,16 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { useScrollToSection } from "@/hooks/useScrollToSection";
 
 const HeroSection = () => {
   const { ref, hasIntersected } = useIntersectionObserver();
-  
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const { scrollToSection } = useScrollToSection();
 
   return (
     <section 

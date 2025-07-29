@@ -3,12 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import { Link, useLocation } from "react-router-dom";
+import { useScrollToSection } from "@/hooks/useScrollToSection";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { scrollToSection: scrollToSectionBase } = useScrollToSection();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,10 +40,8 @@ const Header = () => {
       window.location.href = `/#${sectionId}`;
       return;
     }
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    // Usar o hook para scroll suave
+    scrollToSectionBase(sectionId);
     setIsMobileMenuOpen(false);
   };
 

@@ -2,6 +2,5 @@ export const CONFIG = {
   LOADING_DELAY: 1000,
   TOAST_LIMIT: 1,
   TOAST_REMOVE_DELAY: 1000000,
-  SIDEBAR_COOKIE_MAX_AGE: 60 * 60 * 24 * 7,
   THEME_STORAGE_KEY: 'theme',
 } as const;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -30,7 +30,7 @@ const ContactSection = () => {
   });
   const { toast } = useToast();
 
-  const handleInputChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -46,7 +46,7 @@ const ContactSection = () => {
     }
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     // Validação
@@ -131,11 +131,11 @@ const ContactSection = () => {
               <div className="p-3 bg-primary/10 rounded-lg">
                 <Mail className="w-6 h-6 text-primary" />
               </div>
-              <div>
+              <div className="min-w-0 flex-1">
                 <h3 className="text-xl font-semibold text-heading mb-1">Email</h3>
                 <a 
                   href="mailto:guilhermefcostadev@gmail.com"
-                  className="text-primary hover:underline font-medium"
+                  className="text-primary hover:underline font-medium break-all text-sm sm:text-base"
                 >
                   guilhermefcostadev@gmail.com
                 </a>
@@ -178,7 +178,7 @@ const ContactSection = () => {
                   name="name"
                   type="text"
                   value={formData.name}
-                  onChange={handleInputChange}
+                  onChange={handleChange}
                   placeholder="Seu nome completo"
                   className={`mt-1 transition-all duration-300 focus:ring-2 focus:ring-primary/20 ${
                     errors.name 
@@ -199,7 +199,7 @@ const ContactSection = () => {
                   name="email"
                   type="email"
                   value={formData.email}
-                  onChange={handleInputChange}
+                  onChange={handleChange}
                   placeholder="seu@email.com"
                   className={`mt-1 transition-all duration-300 focus:ring-2 focus:ring-primary/20 ${
                     errors.email 
@@ -219,7 +219,7 @@ const ContactSection = () => {
                   id="message"
                   name="message"
                   value={formData.message}
-                  onChange={handleInputChange}
+                  onChange={handleChange}
                   placeholder="Conte-me sobre seu projeto ou oportunidade..."
                   rows={4}
                   className={`mt-1 transition-all duration-300 focus:ring-2 focus:ring-primary/20 resize-none ${
