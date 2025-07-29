@@ -24,7 +24,7 @@ const ProjectsSection = () => {
       subtitle: "Site institucional moderno para uma pizzaria local.",
       description: "Website institucional totalmente responsivo e performático para a \"Pizza da Praça\". O projeto foi desenvolvido com foco na experiência do usuário (UX), apresentando um design atrativo, sistema de tema claro/escuro, menu interativo com filtros e carregamento otimizado (skeleton loading). Acessibilidade foi uma prioridade, com uso de ARIA labels e navegação completa por teclado.",
       technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "Shadcn/UI", "React Query", "React Hook Form", "Zod"],
-      liveUrl: null,
+      liveUrl: "https://pizza-praca.vercel.app",
       codeUrl: "https://github.com/GuilhermeCostax/pizza-praca",
       image: "/images/projects/pizza-da-praca.png"
     }

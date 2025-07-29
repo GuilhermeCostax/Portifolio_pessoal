@@ -100,17 +100,26 @@ src/
 ### Instalação
 ```bash
 # Clone o repositório
-git clone <URL_DO_REPOSITORIO>
+git clone https://github.com/GuilhermeCostax/Portifolio_pessoal.git
 
 # Navegue até o diretório
 cd Portifolio_pessoal
 
-# Instale as dependências
+# Instale as dependências (inclui todas as dependências necessárias)
 npm install
 
 # Inicie o servidor de desenvolvimento
 npm run dev
 ```
+
+### ⚠️ Importante
+**Todas as dependências são instaladas automaticamente** com o comando `npm install`. Isso inclui:
+- Dependências principais (React, TypeScript, etc.)
+- Dependências de UI (shadcn/ui, Radix UI, etc.)
+- Dependências de tema (next-themes)
+- Dependências de desenvolvimento (Vite, ESLint, etc.)
+
+**Não é necessário instalar dependências adicionais** após clonar o projeto. O `package.json` já contém todas as dependências necessárias para o funcionamento completo do portfólio.
 
 ### Scripts Disponíveis
 ```bash
