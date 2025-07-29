@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-
+import { Download, User, Code, Lightbulb } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { useAnimations } from "@/hooks/useAnimations";
 
 const AboutSection = () => {
   const { ref, hasIntersected } = useIntersectionObserver();

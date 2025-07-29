@@ -8,6 +8,8 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { sendContactEmail, type ContactFormData } from '@/lib/emailjs';
 import Header from '@/components/Header';
+import { useScrollToTop } from '@/hooks/useScrollToTop';
+import { useAnimations } from '@/hooks/useAnimations';
 
 interface FormData {
   name: string;
@@ -72,6 +74,11 @@ const services = [
 ];
 
 const Servicos = () => {
+  // Hook para scroll automático para o topo
+  useScrollToTop();
+  
+  const { animationClasses, cardHoverEffect, buttonHoverEffect, animatedGradients } = useAnimations();
+  
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',

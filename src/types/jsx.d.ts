@@ -1,35 +1,33 @@
-import React from 'react';
-
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      div: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
-      section: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-      h1: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-      h2: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-      h3: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-      h4: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-      h5: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-      h6: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-      p: React.DetailedHTMLProps<React.HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>;
-      span: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
-      ul: React.DetailedHTMLProps<React.HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
-      li: React.DetailedHTMLProps<React.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>;
-      form: React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>;
-      label: React.DetailedHTMLProps<React.LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
-      input: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
-      textarea: React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
-      select: React.DetailedHTMLProps<React.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>;
-      option: React.DetailedHTMLProps<React.OptionHTMLAttributes<HTMLOptionElement>, HTMLOptionElement>;
-      a: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
-      button: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
-      main: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-      header: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-      footer: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-      nav: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-      article: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-      aside: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-      img: React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>;
+      div: import('react').DetailedHTMLProps<import('react').HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+      section: import('react').DetailedHTMLProps<import('react').HTMLAttributes<HTMLElement>, HTMLElement>;
+      h1: import('react').DetailedHTMLProps<import('react').HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+      h2: import('react').DetailedHTMLProps<import('react').HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+      h3: import('react').DetailedHTMLProps<import('react').HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+      h4: import('react').DetailedHTMLProps<import('react').HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+      h5: import('react').DetailedHTMLProps<import('react').HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+      h6: import('react').DetailedHTMLProps<import('react').HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+      p: import('react').DetailedHTMLProps<import('react').HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>;
+      span: import('react').DetailedHTMLProps<import('react').HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
+      ul: import('react').DetailedHTMLProps<import('react').HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
+      li: import('react').DetailedHTMLProps<import('react').LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>;
+      form: import('react').DetailedHTMLProps<import('react').FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>;
+      label: import('react').DetailedHTMLProps<import('react').LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
+      input: import('react').DetailedHTMLProps<import('react').InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+      textarea: import('react').DetailedHTMLProps<import('react').TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
+      select: import('react').DetailedHTMLProps<import('react').SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>;
+      option: import('react').DetailedHTMLProps<import('react').OptionHTMLAttributes<HTMLOptionElement>, HTMLOptionElement>;
+      a: import('react').DetailedHTMLProps<import('react').AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
+      button: import('react').DetailedHTMLProps<import('react').ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+      main: import('react').DetailedHTMLProps<import('react').HTMLAttributes<HTMLElement>, HTMLElement>;
+      header: import('react').DetailedHTMLProps<import('react').HTMLAttributes<HTMLElement>, HTMLElement>;
+      footer: import('react').DetailedHTMLProps<import('react').HTMLAttributes<HTMLElement>, HTMLElement>;
+      nav: import('react').DetailedHTMLProps<import('react').HTMLAttributes<HTMLElement>, HTMLElement>;
+      article: import('react').DetailedHTMLProps<import('react').HTMLAttributes<HTMLElement>, HTMLElement>;
+      aside: import('react').DetailedHTMLProps<import('react').HTMLAttributes<HTMLElement>, HTMLElement>;
+      img: import('react').DetailedHTMLProps<import('react').ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>;
     }
   }
 }
