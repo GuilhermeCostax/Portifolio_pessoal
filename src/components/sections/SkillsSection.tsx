@@ -18,27 +18,48 @@ const SkillsSection = () => {
     {
       title: "Linguagens",
       icon: <Code className="w-6 h-6" />,
-      skills: ["JavaScript", "TypeScript", "Python", "C", "HTML5", "CSS3"]
+      skills: ["TypeScript", "JavaScript", "Python", "C", "HTML5 & CSS3"]
     },
     {
       title: "Front-End",
       icon: <Palette className="w-6 h-6" />,
-      skills: ["React", "Next.js", "Vite", "Tailwind CSS"]
+      skills: [
+        "Frameworks: React, Next.js, Vite",
+        "UI & Estilização: Tailwind CSS, shadcn/ui, Radix UI",
+        "Gerenciamento de Estado/Dados: TanStack Query, React Hook Form, Zod",
+        "Bibliotecas: Axios, React Router DOM, Leaflet"
+      ]
     },
     {
       title: "Back-End",
       icon: <Server className="w-6 h-6" />,
-      skills: ["FastAPI", "Node.js (básico)"]
+      skills: [
+        "Frameworks: FastAPI (Python), Node.js (Básico)",
+        "Autenticação: JWT, NextAuth.js"
+      ]
     },
     {
       title: "Bancos de Dados",
       icon: <Database className="w-6 h-6" />,
-      skills: ["SQLite", "SQLAlchemy"]
+      skills: ["PostgreSQL", "SQLAlchemy (ORM)", "SQLite"]
     },
     {
-      title: "Ferramentas e Outros",
+      title: "Infraestrutura & DevOps",
+      icon: <Globe className="w-6 h-6" />,
+      skills: [
+        "Deploy: Vercel, Render",
+        "Controle de Versão: Git, GitHub",
+        "Contêineres: Docker (Básico)"
+      ]
+    },
+    {
+      title: "Ferramentas & Testes",
       icon: <Settings className="w-6 h-6" />,
-      skills: ["Git", "GitHub", "Docker (básico)", "Visual Studio Code", "IA (Google Gemini API)"]
+      skills: [
+        "Qualidade de Código: ESLint, Prettier, Black",
+        "Testes: Jest, Pytest",
+        "APIs & Ferramentas: IA (Google Gemini API), Visual Studio Code"
+      ]
     }
   ];
 
@@ -52,7 +73,7 @@ const SkillsSection = () => {
     >
       <div className="container mx-auto max-w-6xl">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-heading text-center mb-12 sm:mb-16">
-          Habilidades
+          Tecnologias
         </h2>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">

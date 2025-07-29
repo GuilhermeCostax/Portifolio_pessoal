@@ -33,18 +33,15 @@ const AboutSection = () => {
           <div className="space-y-6 sm:space-y-8 order-2 md:order-none">
             <div className="space-y-4 sm:space-y-6 text-sm sm:text-base leading-relaxed text-foreground text-center md:text-left">
               <p>
-                Sou Guilherme, desenvolvedor Full-Stack e estudante de Engenharia de Software na PUC Minas. 
-                Especializado em React e Node.js, construo soluções web modernas e eficientes.
+                Sou Guilherme, estudante de Engenharia de Software na PUC Minas e um desenvolvedor apaixonado por transformar desafios complexos em soluções de software eficientes.
               </p>
               
               <p>
-                Minha paixão pela tecnologia começou aos 17 anos, e hoje foco em criar aplicações que 
-                resolvem problemas reais, com especial interesse em Inteligência Artificial.
+                Com um foco intenso em aprendizado prático, desenvolvi e implantei aplicações full-stack utilizando um ecossistema moderno com React/Next.js no frontend e Python/FastAPI no backend. Minha abordagem envolve o uso estratégico de ferramentas de IA para acelerar a prototipagem e a arquitetura, permitindo-me focar na integração, na lógica de negócio e na entrega de produtos robustos em tempo recorde.
               </p>
               
               <p>
-                Busco constantemente aprimorar minhas habilidades, combinando uma base sólida de engenharia 
-                com as mais recentes ferramentas do mercado para entregar produtos de alta qualidade.
+                Atualmente, estou aprofundando minhas habilidades na otimização e codificação manual de componentes, buscando minha primeira oportunidade para aplicar minha visão sistêmica e minha dedicação para contribuir com uma equipe inovadora.
               </p>
             </div>
             

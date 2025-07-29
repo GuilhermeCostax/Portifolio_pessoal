@@ -26,7 +26,7 @@ const HeroSection = () => {
         </h1>
         
         <h2 className="text-base sm:text-lg md:text-xl text-muted-foreground mb-12 sm:mb-16 font-normal max-w-2xl mx-auto px-4">
-          Desenvolvedor Full-Stack especializado em React e Node.js
+          Desenvolvedor Full-Stack | React, Next.js & Python com FastAPI
         </h2>
         
         <div className="flex justify-center mb-16 sm:mb-20">
