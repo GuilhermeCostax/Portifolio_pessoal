@@ -78,7 +78,7 @@ const AboutSection = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
                   <Download className="w-5 h-5 relative z-10" />
-                  <span className="relative z-10">Download CV (Em breve)</span>
+                  <span className="relative z-10">Visualizar Currículo</span>
                 </button>
               </div>
             </div>

@@ -26,9 +26,7 @@ const SkillsSection = () => {
         { name: "React", logo: "⚛️" },
         { name: "Next.js", logo: "▲" },
         { name: "TypeScript", logo: "📘" },
-        { name: "Tailwind CSS", logo: "🎨" },
-        { name: "Vite", logo: "⚡" },
-        { name: "shadcn/ui", logo: "🎯" }
+        { name: "Tailwind CSS", logo: "🎨" }
       ]
     },
     {
