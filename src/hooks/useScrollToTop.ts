@@ -1,14 +1,11 @@
-/**
- * Hook personalizado para fazer scroll automático para o topo da página
- * Segue o princípio da responsabilidade única (SRP) do SOLID
- */
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
 export const useScrollToTop = () => {
-  // Scroll suave para o topo da página
-  window.scrollTo({
-    top: 0,
-    left: 0,
-    behavior: 'smooth'
-  });
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname]);
 };
 
 export default useScrollToTop;

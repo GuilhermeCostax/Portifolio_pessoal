@@ -1,23 +1,14 @@
-import { Theme } from '@/types/theme';
+import type { Theme } from '@/types/theme';
 import { CONFIG } from '@/constants/config';
 
 export const themeStorage = {
   get: (): Theme => {
-    if (typeof window !== 'undefined') {
-      return (localStorage.getItem(CONFIG.THEME_STORAGE_KEY) as Theme) || 'system';
-    }
-    return 'system';
+    try {
+      const value = localStorage.getItem(CONFIG.THEME_STORAGE_KEY);
+      return value === 'light' || value === 'dark' || value === 'system' ? value : 'system';
+    } catch { return 'system'; }
   },
-
   set: (theme: Theme): void => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(CONFIG.THEME_STORAGE_KEY, theme);
-    }
-  },
-
-  remove: (): void => {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem(CONFIG.THEME_STORAGE_KEY);
-    }
+    try { localStorage.setItem(CONFIG.THEME_STORAGE_KEY, theme); } catch { /* Tema continua ativo sem persistência. */ }
   },
 };

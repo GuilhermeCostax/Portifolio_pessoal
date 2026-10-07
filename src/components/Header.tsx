@@ -1,166 +1,89 @@
-import React, { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
-import { useLocation } from "react-router-dom";
-import { useScrollToSection } from "@/hooks/useScrollToSection";
-import HeaderThemeToggle from "@/components/HeaderThemeToggle";
+import { useEffect, useRef, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import HeaderThemeToggle from '@/components/HeaderThemeToggle';
+import { navigation } from '@/data/navigation';
+import { useScrollToSection } from '@/hooks/useScrollToSection';
 
-const Header = () => {
+export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { scrollToSection: scrollToSectionBase } = useScrollToSection();
+  const lastScrollY = useRef(0);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const menu = useRef<HTMLDivElement>(null);
+  const { pathname } = useLocation();
+  const { scrollToSection } = useScrollToSection();
 
   useEffect(() => {
+    lastScrollY.current = window.scrollY;
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      setIsScrolled(currentScrollY > 50);
-      
-      if (currentScrollY < lastScrollY || currentScrollY < 100) {
-        setIsVisible(true);
-      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsVisible(false);
-      }
-      
-      setLastScrollY(currentScrollY);
+      const y = window.scrollY;
+      setIsScrolled(y > 50);
+      setIsVisible(y < lastScrollY.current || y < 100);
+      lastScrollY.current = y;
     };
-
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
-  const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    menu.current?.querySelector<HTMLElement>('a')?.focus();
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMobileMenuOpen(false);
+        menuButton.current?.focus();
+      }
+      if (event.key === 'Tab') {
+        const controls = [menuButton.current, ...Array.from(menu.current?.querySelectorAll<HTMLElement>('a') || [])].filter((item): item is HTMLElement => item !== null);
+        const first = controls[0];
+        const last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+        if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+      }
+    };
+    document.addEventListener('keydown', handleKey);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKey);
+    };
+  }, [isMobileMenuOpen]);
 
-  const scrollToSection = (sectionId: string) => {
-    if (!isHomePage) {
-      // Se não estiver na página inicial, navegar para lá primeiro
-      window.location.href = `/#${sectionId}`;
-      return;
-    }
-    // Usar o hook para scroll suave
-    scrollToSectionBase(sectionId);
+  const selectSection = (id: string) => {
     setIsMobileMenuOpen(false);
+    setIsVisible(true);
+    if (pathname === '/') scrollToSection(id);
   };
 
-  return (
-    <>
-      <header className={`fixed top-6 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-700 ease-out ${
-        isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
-      }`}>
-        <div className={`glass-ultra rounded-full px-8 py-4 shadow-2xl backdrop-blur-xl border border-white/20 dark:border-white/10 transition-all duration-500 hover:shadow-purple-500/20 hover:border-purple-400/30 dark:hover:shadow-indigo-400/30 dark:hover:border-indigo-400/40 ${
-          isScrolled ? 'glow-primary scale-[0.98]' : 'scale-100'
-        }`}>
-          <nav className="flex items-center justify-between w-full">
-            {/* Navigation Links */}
-            <div className="hidden md:flex items-center space-x-6">
-              <Button 
-                variant="ghost" 
-                onClick={() => scrollToSection('inicio')} 
-                className="text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 px-4 py-2 text-sm font-medium tracking-wide transition-all duration-300 hover:bg-indigo-50/50 dark:hover:bg-indigo-900/30 rounded-full border-0 hover:scale-105"
-              >
-                Início
-              </Button>
-              <Button 
-                variant="ghost" 
-                onClick={() => scrollToSection('projetos')} 
-                className="text-slate-700 dark:text-slate-200 hover:text-purple-600 dark:hover:text-purple-400 px-4 py-2 text-sm font-medium tracking-wide transition-all duration-300 hover:bg-purple-50/50 dark:hover:bg-purple-900/30 rounded-full border-0 hover:scale-105"
-              >
-                Projetos
-              </Button>
-              <Button 
-                variant="ghost" 
-                onClick={() => scrollToSection('habilidades')} 
-                className="text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 px-4 py-2 text-sm font-medium tracking-wide transition-all duration-300 hover:bg-indigo-50/50 dark:hover:bg-indigo-900/30 rounded-full border-0 hover:scale-105"
-              >
-                Habilidades
-              </Button>
-              <Button 
-                variant="ghost" 
-                onClick={() => scrollToSection('servicos')} 
-                className="text-slate-700 dark:text-slate-200 hover:text-purple-600 dark:hover:text-purple-400 px-4 py-2 text-sm font-medium tracking-wide transition-all duration-300 hover:bg-purple-50/50 dark:hover:bg-purple-900/30 rounded-full border-0 hover:scale-105"
-              >
-                Serviços
-              </Button>
-              <Button 
-                variant="ghost" 
-                onClick={() => scrollToSection('contato')} 
-                className="text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 px-4 py-2 text-sm font-medium tracking-wide transition-all duration-300 hover:bg-indigo-50/50 dark:hover:bg-indigo-900/30 rounded-full border-0 hover:scale-105"
-              >
-                Contato
-              </Button>
-            </div>
-
-            {/* Theme Toggle - Desktop */}
-             <div className="hidden md:flex items-center">
-               <HeaderThemeToggle />
-             </div>
-
-             {/* Mobile Menu Button */}
-             <div className="md:hidden flex items-center space-x-2">
-               <HeaderThemeToggle />
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50/50 dark:hover:bg-indigo-900/30 rounded-full transition-all duration-300"
-              >
-                {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-              </Button>
-            </div>
-          </nav>
-        </div>
-      </header>
-
-      {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-40 md:hidden">
-          <div className="fixed inset-0 bg-slate-900/20 backdrop-blur-md" onClick={() => setIsMobileMenuOpen(false)} />
-          <div className="fixed top-24 left-4 right-4 glass-ultra rounded-3xl shadow-2xl border border-white/20 dark:border-white/10">
-            <nav className="flex flex-col p-8 space-y-2">
-              <Button 
-                variant="ghost" 
-                onClick={() => scrollToSection('inicio')} 
-                className="justify-start text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 h-12 px-6 text-base font-medium rounded-2xl hover:bg-indigo-50/50 dark:hover:bg-indigo-900/30 transition-all duration-300 hover:scale-105"
-              >
-                Início
-              </Button>
-              <Button 
-                variant="ghost" 
-                onClick={() => scrollToSection('projetos')} 
-                className="justify-start text-slate-700 dark:text-slate-200 hover:text-purple-600 dark:hover:text-purple-400 h-12 px-6 text-base font-medium rounded-2xl hover:bg-purple-50/50 dark:hover:bg-purple-900/30 transition-all duration-300 hover:scale-105"
-              >
-                Projetos
-              </Button>
-              <Button 
-                variant="ghost" 
-                onClick={() => scrollToSection('habilidades')} 
-                className="justify-start text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 h-12 px-6 text-base font-medium rounded-2xl hover:bg-indigo-50/50 dark:hover:bg-indigo-900/30 transition-all duration-300 hover:scale-105"
-              >
-                Habilidades
-              </Button>
-              <Button 
-                variant="ghost" 
-                onClick={() => scrollToSection('servicos')} 
-                className="justify-start text-slate-700 dark:text-slate-200 hover:text-purple-600 dark:hover:text-purple-400 h-12 px-6 text-base font-medium rounded-2xl hover:bg-purple-50/50 dark:hover:bg-purple-900/30 transition-all duration-300 hover:scale-105"
-              >
-                Serviços
-              </Button>
-              <Button 
-                variant="ghost" 
-                onClick={() => scrollToSection('contato')} 
-                className="justify-start text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 h-12 px-6 text-base font-medium rounded-2xl hover:bg-indigo-50/50 dark:hover:bg-indigo-900/30 transition-all duration-300 hover:scale-105"
-              >
-                Contato
-              </Button>
-            </nav>
+  return <>
+    <header className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 transition-transform duration-300 focus-within:translate-y-0 ${isVisible || isMobileMenuOpen ? 'translate-y-0' : '-translate-y-[150%]'}`}>
+      <div className={`glass-ultra rounded-full px-6 py-4 shadow-lg ${isScrolled ? 'border-primary/30' : ''}`}>
+        <nav aria-label="Navegação principal" className="flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-2">
+            {navigation.map(item => <Button key={item.id} variant="ghost" asChild className="rounded-full text-foreground">
+              <Link to={`/#${item.id}`} onClick={() => selectSection(item.id)}>{item.label}</Link>
+            </Button>)}
           </div>
-        </div>
-      )}
-    </>
-  );
-};
-
-export default Header;
+          <HeaderThemeToggle />
+          <Button ref={menuButton} variant="ghost" size="icon" className="md:hidden rounded-full" onClick={() => setIsMobileMenuOpen(open => !open)} aria-label={isMobileMenuOpen ? 'Fechar menu' : 'Abrir menu'} aria-expanded={isMobileMenuOpen} aria-controls="menu-mobile">
+            {isMobileMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+          </Button>
+        </nav>
+      </div>
+    </header>
+    {isMobileMenuOpen && <div className="fixed inset-0 z-40 md:hidden">
+      <div className="absolute inset-0 bg-background/80" onClick={() => { setIsMobileMenuOpen(false); menuButton.current?.focus(); }} aria-hidden="true" />
+      <div ref={menu} id="menu-mobile" className="fixed top-28 left-4 right-4 glass-ultra rounded-2xl p-4">
+        <nav aria-label="Navegação mobile" className="flex flex-col gap-2">
+          {navigation.map(item => <Button key={item.id} variant="ghost" asChild className="justify-start h-12">
+            <Link to={`/#${item.id}`} onClick={() => selectSection(item.id)}>{item.label}</Link>
+          </Button>)}
+        </nav>
+      </div>
+    </div>}
+  </>;
+}

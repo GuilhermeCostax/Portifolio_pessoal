@@ -1,35 +1,24 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ThemeProvider } from "@/contexts/ThemeContext";
-import ThemeTransition from "@/components/ThemeTransition";
-import Index from "./pages/Index";
-import Servicos from "./pages/Servicos";
-import NotFound from "./pages/NotFound";
+import { lazy, Suspense } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Toaster } from '@/components/ui/toaster';
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import Index from './pages/Index';
 
-const queryClient = new QueryClient();
+const Servicos = lazy(() => import('./pages/Servicos'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <ThemeProvider>
-      <ThemeTransition>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/servicos" element={<Servicos />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </TooltipProvider>
-      </ThemeTransition>
-    </ThemeProvider>
-  </QueryClientProvider>
+  <ThemeProvider>
+    <Toaster />
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      <Suspense fallback={<main className="min-h-screen grid place-items-center" aria-busy="true"><p role="status">Carregando página...</p></main>}>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/servicos" element={<Servicos />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
+  </ThemeProvider>
 );
-
 export default App;

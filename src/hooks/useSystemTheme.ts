@@ -10,7 +10,7 @@ export const useSystemTheme = () => {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
+
     const handleChange = (e: MediaQueryListEvent) => {
       setSystemTheme(e.matches ? 'dark' : 'light');
     };
@@ -19,7 +19,7 @@ export const useSystemTheme = () => {
     if (mediaQuery.addEventListener) {
       mediaQuery.addEventListener('change', handleChange);
       return () => mediaQuery.removeEventListener('change', handleChange);
-    } 
+    }
     // Fallback for older browsers
     else if (mediaQuery.addListener) {
       mediaQuery.addListener(handleChange);

@@ -1,34 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 
-export const useIntersectionObserver = (options?: IntersectionObserverInit) => {
-  const [isIntersecting, setIsIntersecting] = useState(false);
+export const useIntersectionObserver = () => {
   const [hasIntersected, setHasIntersected] = useState(false);
   const ref = useRef<HTMLElement>(null);
-
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsIntersecting(entry.isIntersecting);
-        if (entry.isIntersecting && !hasIntersected) {
-          setHasIntersected(true);
-        }
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '50px',
-        ...options,
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setHasIntersected(true);
+      return;
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setHasIntersected(true);
+        observer.disconnect();
       }
-    );
-
+    }, { threshold: 0.1, rootMargin: '50px' });
     observer.observe(element);
-
-    return () => {
-      observer.unobserve(element);
-    };
-  }, [hasIntersected, options]);
-
-  return { ref, isIntersecting, hasIntersected };
+    return () => observer.disconnect();
+  }, []);
+  return { ref, hasIntersected };
 };

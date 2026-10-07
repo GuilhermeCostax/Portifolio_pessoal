@@ -2,9 +2,9 @@
 
 Este guia te ajudará a configurar o EmailJS para que o formulário de contato funcione corretamente de forma segura.
 
-## ⚠️ Segurança Importante
+## Configuração pública do frontend
 
-As credenciais do EmailJS agora são gerenciadas através de **variáveis de ambiente** para manter a segurança. Nunca commite credenciais diretamente no código!
+Os IDs do serviço/template e a chave pública do EmailJS são configurados por variáveis de ambiente. Variáveis `VITE_*` são incorporadas no JavaScript entregue ao navegador: não coloque senhas, tokens privados ou outros segredos nelas. Configure as restrições de domínio e controles de uso na sua conta EmailJS.
 
 ## Passo 1: Criar uma conta no EmailJS
 
@@ -59,19 +59,19 @@ Você pode responder diretamente para: {{reply_to}}
 
 ## Passo 5: Configurar variáveis de ambiente
 
-1. Copie o arquivo `.env.example` para `.env`:
+1. Copie o arquivo `.env.example` para `.env.local`:
    ```bash
-   cp .env.example .env
+   cp .env.example .env.local
    ```
 
-2. Abra o arquivo `.env` e preencha com suas credenciais:
+2. Abra o arquivo `.env.local` e preencha com suas credenciais:
    ```env
    VITE_EMAILJS_SERVICE_ID=seu_service_id_aqui
    VITE_EMAILJS_TEMPLATE_ID=seu_template_id_aqui
    VITE_EMAILJS_PUBLIC_KEY=sua_public_key_aqui
    ```
 
-3. **IMPORTANTE**: O arquivo `.env` já está no `.gitignore` e não será commitado no repositório
+3. **IMPORTANTE**: O arquivo `.env.local` já está no `.gitignore` e não será commitado no repositório
 
 ## 6. Testar o Formulário
 
@@ -91,12 +91,6 @@ O sistema envia as seguintes variáveis para o template:
 - `to_email`: Seu email (guilhermefcostadev@gmail.com)
 - `subject`: Assunto automático
 - `reply_to`: Email para resposta
-
-## Limites da Conta Gratuita
-
-- 200 emails por mês
-- Perfeito para um portfólio pessoal
-- Upgrade disponível se necessário
 
 ## Troubleshooting
 

@@ -1,3 +1,4 @@
+import { profile } from '@/data/profile';
 import { Github, Linkedin } from "lucide-react";
 
 const Footer = () => {
@@ -13,19 +14,21 @@ const Footer = () => {
               Desenvolvedor e Estudante de Engenharia de Software
             </p>
           </div>
-          
+
           <div className="flex gap-4">
-            <a 
-              href="https://www.linkedin.com/in/guilhermefcostaa/" 
-              target="_blank" 
+            <a
+              href={profile.linkedin}
+              aria-label="LinkedIn de Guilherme Costa"
+              target="_blank"
               rel="noopener noreferrer"
               className="p-3 rounded-full border border-border hover:bg-accent hover:border-primary transition-all duration-300"
             >
               <Linkedin className="w-5 h-5 text-muted-foreground hover:text-primary" />
             </a>
-            <a 
-              href="https://github.com/GuilhermeCostax" 
-              target="_blank" 
+            <a
+              href={profile.github}
+              aria-label="GitHub de Guilherme Costa"
+              target="_blank"
               rel="noopener noreferrer"
               className="p-3 rounded-full border border-border hover:bg-accent hover:border-primary transition-all duration-300"
             >
@@ -33,7 +36,7 @@ const Footer = () => {
             </a>
           </div>
         </div>
-        
+
         <div className="mt-8 pt-6 border-t border-border text-center">
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} Guilherme Francisco Costa. Todos os direitos reservados.

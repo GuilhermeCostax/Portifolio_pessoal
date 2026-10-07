@@ -1,6 +1,1 @@
-export const CONFIG = {
-  LOADING_DELAY: 1000,
-  TOAST_LIMIT: 1,
-  TOAST_REMOVE_DELAY: 1000000,
-  THEME_STORAGE_KEY: 'theme',
-} as const;
+export const CONFIG = { THEME_STORAGE_KEY: 'theme' } as const;

@@ -1,263 +1,69 @@
-# Portfólio Pessoal - Guilherme Francisco Costa
+# Portfólio de Guilherme Costa
 
-> Portfólio web moderno e responsivo desenvolvido para apresentar projetos, habilidades e experiências profissionais.
+Portfólio pessoal com projetos, tecnologias, serviços e contato. Construído com React 18, TypeScript, Vite e Tailwind CSS.
 
-## 🎯 Sobre o Projeto
+## Executar
 
-Este é o portfólio pessoal de Guilherme Francisco Costa, desenvolvedor e estudante de Engenharia de Software na PUC Minas. O projeto foi construído com foco em performance, acessibilidade e experiência do usuário, utilizando as mais modernas tecnologias do ecossistema React.
+Use a versão de Node indicada em `.nvmrc` (22.17.0).
 
-### 🆕 Versão 2.0.0 - Otimizações Implementadas
-- **Refatoração Completa**: Eliminação de código duplicado e componentes não utilizados
-- **Hook Personalizado**: `useScrollToSection` para centralizar lógica de navegação
-- **Bundle Otimizado**: Remoção de dependências desnecessárias (cmdk, next-themes)
-- **Performance Melhorada**: Redução significativa do tamanho do bundle
-- **Código Limpo**: Melhoria na manutenibilidade e organização
-
-## 🏗️ Arquitetura e Padrões
-
-### Estrutura do Projeto
-```
-src/
-├── components/          # Componentes reutilizáveis
-│   ├── ui/             # Componentes base do shadcn/ui (otimizados)
-│   ├── sections/       # Seções específicas do portfólio
-│   ├── skeletons/      # Componentes de loading
-│   ├── Header.tsx      # Navegação principal
-│   ├── Footer.tsx      # Rodapé com links sociais
-│   ├── ThemeToggle.tsx # Alternador de tema
-│   └── ThemeTransition.tsx # Transições de tema
-├── pages/              # Páginas da aplicação
-│   ├── Index.tsx       # Página principal
-│   ├── NotFound.tsx    # Página 404
-│   └── Servicos.tsx    # Página de serviços
-├── hooks/              # Hooks personalizados
-│   ├── useScrollToSection.ts # Hook para navegação suave
-│   ├── useIntersectionObserver.ts # Observer de elementos
-│   ├── useLoadingState.ts # Gerenciamento de loading
-│   └── useSystemTheme.ts # Detecção de tema do sistema
-├── contexts/           # Contextos React
-│   └── ThemeContext.tsx # Contexto de tema personalizado
-├── services/           # Serviços e utilitários
-│   ├── themeDom.ts     # Manipulação DOM do tema
-│   └── themeStorage.ts # Persistência de tema
-├── lib/                # Utilitários e configurações
-├── constants/          # Constantes da aplicação
-└── types/              # Definições de tipos TypeScript
-```
-
-### Padrões Arquiteturais
-
-- **Component-Based Architecture**: Estrutura modular com componentes reutilizáveis
-- **Single Page Application (SPA)**: Navegação fluida com React Router
-- **Design System**: Sistema consistente baseado em shadcn/ui
-- **Mobile-First**: Abordagem responsiva priorizando dispositivos móveis
-- **Atomic Design**: Componentes organizados hierarquicamente
-
-## 🛠️ Stack Tecnológica
-
-### Core
-- **React 18** - Biblioteca principal para UI
-- **TypeScript** - Tipagem estática para maior robustez
-- **Vite** - Build tool moderna e performática
-
-### Styling & UI
-- **Tailwind CSS** - Framework CSS utilitário
-- **shadcn/ui** - Componentes acessíveis e customizáveis (otimizados)
-- **Radix UI** - Primitivos de UI headless
-- **Lucide React** - Ícones SVG otimizados
-- **class-variance-authority** - Gerenciamento de variantes de componentes
-- **clsx & tailwind-merge** - Utilitários para classes CSS
-
-### State Management & Data
-- **TanStack Query** - Gerenciamento de estado servidor
-- **EmailJS** - Integração para formulário de contato
-- **Sonner** - Sistema de notificações toast
-- **Contexto Personalizado** - Gerenciamento de tema sem dependências externas
-
-### Developer Experience
-- **ESLint** - Linting de código
-- **PostCSS** - Processamento de CSS
-- **Path Mapping** - Imports absolutos com @/
-
-## 🎨 Design System
-
-### Tema e Cores
-- **Sistema HSL**: Todas as cores definidas em HSL para melhor manipulação
-- **CSS Variables**: Customização dinâmica de temas
-- **Dark/Light Mode**: Suporte nativo a temas claro e escuro
-- **Semantic Colors**: Cores semânticas (primary, secondary, muted, etc.)
-
-### Tipografia
-- **Inter Font**: Fonte principal otimizada para legibilidade
-- **Hierarquia Clara**: Sistema consistente de tamanhos e pesos
-- **Responsive Typography**: Ajuste automático para diferentes telas
-
-### Componentes
-- **Acessibilidade**: ARIA labels e navegação por teclado
-- **Animações**: Transições suaves com CSS e Tailwind
-- **Estados Interativos**: Hover, focus e active states
-
-## 📱 Funcionalidades
-
-### Seções Principais
-1. **Hero Section**: Apresentação pessoal com CTAs
-2. **About Section**: Biografia e trajetória profissional
-3. **Projects Section**: Showcase de projetos com tecnologias
-4. **Skills Section**: Habilidades organizadas por categoria
-5. **Contact Section**: Formulário de contato e redes sociais
-
-### Recursos Técnicos
-- **Navegação Suave**: Hook personalizado `useScrollToSection` para scroll otimizado
-- **Header Dinâmico**: Mudança de estilo baseada no scroll
-- **Formulário Funcional**: Integração com EmailJS e validação completa
-- **Toast Notifications**: Sistema Sonner para feedback do usuário
-- **Tema Personalizado**: Sistema de tema próprio sem dependências externas
-- **Loading States**: Componentes skeleton para melhor UX
-- **Intersection Observer**: Detecção de elementos visíveis
-- **Responsive Design**: Adaptação para todos os dispositivos
-- **Performance Otimizada**: Bundle reduzido e lazy loading
-
-## 🚀 Como Executar
-
-### Pré-requisitos
-- Node.js (versão 18 ou superior)
-- npm ou yarn
-
-### Instalação
 ```bash
-# Clone o repositório
-git clone https://github.com/GuilhermeCostax/Portifolio_pessoal.git
-
-# Navegue até o diretório
-cd Portifolio_pessoal
-
-# Instale as dependências (inclui todas as dependências necessárias)
-npm install
-
-# Inicie o servidor de desenvolvimento
+nvm use
+npm ci
 npm run dev
 ```
 
-### ⚠️ Importante
-**Todas as dependências são instaladas automaticamente** com o comando `npm install`. Isso inclui:
-- Dependências principais (React, TypeScript, etc.)
-- Dependências de UI (shadcn/ui, Radix UI, etc.)
-- Dependências otimizadas (EmailJS, Sonner, etc.)
-- Dependências de desenvolvimento (Vite, ESLint, etc.)
+O servidor abre em `http://localhost:8080`. O build estático é gerado em `dist/`.
 
-**Projeto Otimizado v2.0.0**: Removidas dependências desnecessárias como `cmdk` e `next-themes`, resultando em um bundle mais leve e melhor performance. O sistema de tema agora utiliza contexto personalizado.
-
-**Não é necessário instalar dependências adicionais** após clonar o projeto. O `package.json` já contém todas as dependências necessárias para o funcionamento completo do portfólio.
-
-### Scripts Disponíveis
 ```bash
-npm run dev          # Servidor de desenvolvimento
-npm run build        # Build de produção
-npm run build:dev    # Build de desenvolvimento
-npm run preview      # Preview do build
-npm run lint         # Verificação de código
-```
-
-## 📊 Estrutura de Dados
-
-### Projetos
-Cada projeto no portfólio contém:
-- **Nome e Subtítulo**: Identificação clara do projeto
-- **Descrição Detalhada**: Contexto e funcionalidades
-- **Stack Tecnológica**: Tecnologias utilizadas
-- **Links**: Repositório GitHub e demo ao vivo
-- **Imagem**: Preview visual do projeto
-
-### Habilidades
-Organizadas em categorias:
-- **Linguagens**: JavaScript, TypeScript, Python, C, HTML5, CSS3
-- **Front-End**: React, Next.js, Vite, Tailwind CSS
-- **Back-End**: FastAPI, Node.js
-- **Bancos de Dados**: SQLite, SQLAlchemy
-- **Ferramentas**: Git, GitHub, Docker, VS Code, IA APIs
-
-## 🎯 Destaques Técnicos
-
-### Performance
-- **Bundle Otimizado**: Remoção de dependências desnecessárias (v2.0.0)
-- **Bundle Splitting**: Carregamento otimizado de recursos
-- **Tree Shaking**: Eliminação de código não utilizado
-- **Hook Personalizado**: `useScrollToSection` elimina duplicação de código
-- **Componentes Limpos**: Remoção de componentes UI não utilizados
-- **Image Optimization**: Imagens otimizadas e lazy loading
-- **CSS Purging**: Remoção de CSS não utilizado
-- **Tema Eficiente**: Sistema de tema sem dependências externas
-
-### Acessibilidade
-- **WCAG 2.1**: Conformidade com diretrizes de acessibilidade
-- **Keyboard Navigation**: Navegação completa por teclado
-- **Screen Reader**: Compatibilidade com leitores de tela
-- **Color Contrast**: Contraste adequado em todos os temas
-
-### SEO
-- **Meta Tags**: Otimização para mecanismos de busca
-- **Semantic HTML**: Estrutura semântica adequada
-- **Open Graph**: Compartilhamento otimizado em redes sociais
-
-## 🔧 Customização
-
-### Temas
-O sistema de temas v2.0.0 utiliza contexto personalizado e CSS Variables:
-```css
-:root {
-  --primary: 210 100% 40%;     /* Cor primária */
-  --background: 0 0% 99%;      /* Cor de fundo */
-  --foreground: 225 15% 20%;   /* Cor do texto */
-  /* ... outras variáveis */
-}
-```
-
-**Melhorias v2.0.0**:
-- Sistema de tema próprio sem dependências externas
-- Melhor performance e controle
-- Transições suaves entre temas
-- Persistência local otimizada
-
-### Componentes
-Todos os componentes seguem o padrão shadcn/ui e podem ser customizados via:
-- **Tailwind Classes**: Estilização utilitária
-- **CSS Variables**: Cores e espaçamentos
-- **Component Variants**: Variações pré-definidas
-
-## 📱 Responsividade
-
-### Breakpoints
-- **Mobile**: < 768px
-- **Tablet**: 768px - 1024px
-- **Desktop**: > 1024px
-- **Large Desktop**: > 1400px
-
-### Estratégia Mobile-First
-- Design inicial para mobile
-- Progressive enhancement para telas maiores
-- Touch-friendly interactions
-- Otimização de performance para dispositivos móveis
-
-## 🚀 Deploy
-
-O projeto está configurado para deploy em:
-- **Vercel** (recomendado)
-- **Netlify**
-- **GitHub Pages**
-- **Qualquer provedor que suporte SPA**
-
-### Build de Produção
-```bash
+npm run check     # lint, TypeScript estrito, testes e build
+npm run test      # validação do contato
 npm run build
+npm run preview
 ```
 
-## 📞 Contato
+## Organização
 
-**Guilherme Francisco Costa**
-- 📧 Email: guilhermefcostadev@gmail.com
-- 💼 LinkedIn: [guilhermefcostaa](https://www.linkedin.com/in/guilhermefcostaa/)
-- 🐙 GitHub: [GuilhermeCostax](https://github.com/GuilhermeCostax)
+```text
+src/
+  components/
+    layout/       # layout compartilhado entre páginas
+    sections/     # seções da home
+    ui/           # componentes base utilizados
+  contexts/       # provider e definição do contexto de tema
+  data/           # projetos, tecnologias, serviços, perfil e navegação
+  features/
+    contact/      # formulário, hook e validação compartilhados
+  hooks/          # tema, scroll, observer e notificações
+  lib/            # integração EmailJS, animações e utilitários
+  pages/          # home, serviços e 404
+  services/       # armazenamento e aplicação do tema
+  types/          # tipos do tema
+public/           # arquivos entregues ao visitante
+design/originals/ # imagens originais de referência, fora do build
+```
 
----
+Projetos, tecnologias e serviços são editados em `src/data/`. Os dados de contato ficam em `src/data/profile.ts`. A página de serviços e a 404 são carregadas sob demanda; o SDK de email é carregado apenas quando há envio. As imagens dos projetos possuem variantes WebP de 640 e 1280 px, com originais preservados em `design/originals/`.
 
-*Desenvolvido com ❤️ por Guilherme Francisco Costa*
+## Contato
+
+Copie `.env.example` para `.env.local` e substitua os três valores pelo serviço, template e chave pública da sua conta EmailJS. Reinicie o servidor após configurar.
+
+```bash
+cp .env.example .env.local
+```
+
+Sem configuração, o site oferece contato direto por email. A chave pública e as variáveis `VITE_*` são incorporadas no frontend; não coloque segredos nessas variáveis. Veja [EMAILJS_SETUP.md](EMAILJS_SETUP.md) para os campos do template.
+
+## Publicar
+
+Execute `npm run check` e publique `dist/` em um host de arquivos estáticos. Configure o host para servir `index.html` nas rotas da SPA, incluindo `/servicos`. Configure as variáveis de contato antes do build. Não versionar `node_modules`, `.vite`, `.env.local` ou `dist`.
+
+O workflow em `.github/workflows/ci.yml` executa as verificações em pushes e pull requests. Os testes locais de validação não confirmam entrega de email; esse fluxo depende da configuração da conta e de um teste real autorizado.
+
+## Pendências de conteúdo
+
+- Adicionar um currículo atualizado antes de oferecer seu download.
+- Definir o domínio público para canonical e sitemap.
+- Confirmar a entrega do EmailJS com a conta configurada.
+
+Consulte [ANALISE_PROJETO.md](ANALISE_PROJETO.md) para o diagnóstico original e o registro das melhorias.

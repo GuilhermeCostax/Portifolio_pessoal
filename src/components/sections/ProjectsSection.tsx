@@ -1,41 +1,17 @@
+import { projects } from '@/data/projects';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
-import { useState } from "react";
 
 const ProjectsSection = () => {
   const { ref, hasIntersected } = useIntersectionObserver();
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  
-  const projects = [
-    {
-      id: 1,
-      name: "AI Text Summarizer",
-      subtitle: "Aplicação web multiusuário para resumir textos com IA.",
-      description: "Uma solução completa que utiliza a API do Google Gemini para gerar resumos de textos longos. O projeto inclui um sistema de autenticação seguro com JWT, onde cada usuário possui seu próprio histórico de resumos salvo em um banco de dados, garantindo privacidade e personalização. A arquitetura foi construída com um back-end robusto em FastAPI e um front-end reativo em Next.js.",
-      technologies: ["FastAPI", "Next.js", "TypeScript", "Python", "SQLAlchemy", "JWT", "SQLite", "Google Gemini API", "Vercel"],
-      liveUrl: "https://resumidor-texto.vercel.app",
-      codeUrl: "https://github.com/GuilhermeCostax/Resumidor_Texto",
-      image: "/images/projects/SummarizeAI.png"
-    },
-    {
-      id: 2,
-      name: "Pizza da Praça",
-      subtitle: "Site institucional moderno para uma pizzaria local.",
-      description: "Website institucional totalmente responsivo e performático para a \"Pizza da Praça\". O projeto foi desenvolvido com foco na experiência do usuário (UX), apresentando um design atrativo, sistema de tema claro/escuro, menu interativo com filtros e carregamento otimizado (skeleton loading). Acessibilidade foi uma prioridade, com uso de ARIA labels e navegação completa por teclado.",
-      technologies: ["React", "TypeScript", "Tailwind CSS", "Shadcn/UI", "React Query", "React Hook Form", "Zod"],
-      liveUrl: "https://pizza-praca.vercel.app",
-      codeUrl: "https://github.com/GuilhermeCostax/pizza-praca",
-      image: "/images/projects/pizza-da-praca.png"
-    }
-  ];
 
   return (
-    <section 
+    <section
       ref={ref}
-      id="projetos" 
+      id="projetos"
       className={`relative py-20 sm:py-24 md:pt-16 md:pb-32 px-4 sm:px-6 aurora-bg overflow-hidden transition-all duration-1000 ${
         hasIntersected ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
@@ -45,48 +21,42 @@ const ProjectsSection = () => {
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-float" />
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
       </div>
-      
+
       <div className="container mx-auto max-w-7xl relative z-10">
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold gradient-text-primary text-center mb-20 sm:mb-24 tracking-tight leading-tight">
           Projetos
         </h2>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
-          {projects.map((project, index) => (
+          {projects.map((project) => (
             <div
               key={project.id}
-              className={`group relative transition-all duration-500 ease-out ${
-                hoveredCard === project.id 
-                  ? 'transform rotate-1 scale-105 z-20' 
-                  : 'transform rotate-0 scale-100 z-10'
-              }`}
-              onMouseEnter={() => setHoveredCard(project.id)}
-              onMouseLeave={() => setHoveredCard(null)}
+              className="group relative transition-transform duration-300 hover:-translate-y-1 focus-within:-translate-y-1"
               style={{
                 perspective: '1000px',
                 transformStyle: 'preserve-3d'
               }}
             >
-              <Card className={`glass-subtle hover:glass border-0 overflow-hidden transition-all duration-500 h-full flex flex-col ${
-                hoveredCard === project.id 
-                  ? 'glow-primary shadow-2xl shadow-primary/20' 
-                  : 'shadow-lg'
-              }`}>
+              <Card className="glass-subtle border-0 overflow-hidden transition-shadow duration-300 h-full flex flex-col shadow-lg group-hover:shadow-xl">
                 {/* Project Image */}
                 <CardHeader className="p-0 relative overflow-hidden">
                   <div className="w-full h-64 bg-gradient-to-br from-muted/50 to-muted/80 flex items-center justify-center overflow-hidden relative">
-                    <img 
-                      src={project.image} 
+                    <img
+                      src={project.image}
+                      srcSet={`${project.image.replace('-1280.webp', '-640.webp')} 640w, ${project.image} 1280w`}
+                      sizes="(min-width: 1024px) 540px, (min-width: 640px) 90vw, calc(100vw - 64px)"
+                      width={1280}
+                      height={800}
+                      loading="lazy"
+                      decoding="async"
                       alt={`${project.name} preview`}
-                      className={`w-full h-full object-cover transition-transform duration-500 ${
-                        hoveredCard === project.id ? 'scale-110' : 'scale-100'
-                      }`}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 group-focus-within:scale-105"
                     />
                     {/* Overlay gradient */}
                     <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent" />
                   </div>
                 </CardHeader>
-                
+
                 <CardContent className="p-6 flex-1 flex flex-col">
                   {/* Project Info */}
                   <div className="mb-6">
@@ -100,22 +70,22 @@ const ProjectsSection = () => {
                       {project.description}
                     </p>
                   </div>
-                  
+
                   {/* Tech Stack */}
                   <div className="mb-6">
                     <div className="flex flex-wrap gap-2">
                       {project.technologies.slice(0, 4).map((tech) => (
-                        <Badge 
-                          key={tech} 
-                          variant="outline" 
+                        <Badge
+                          key={tech}
+                          variant="outline"
                           className="text-xs px-2 py-1 glass-subtle border-primary/20 text-primary hover:glass hover:glow-primary transition-all duration-300"
                         >
                           {tech}
                         </Badge>
                       ))}
                       {project.technologies.length > 4 && (
-                        <Badge 
-                          variant="outline" 
+                        <Badge
+                          variant="outline"
                           className="text-xs px-2 py-1 glass-subtle border-muted-foreground/20 text-muted-foreground"
                         >
                           +{project.technologies.length - 4}
@@ -123,12 +93,12 @@ const ProjectsSection = () => {
                       )}
                     </div>
                   </div>
-                  
+
                   {/* Action Buttons */}
                   <div className="flex gap-3 mt-auto">
                     {project.liveUrl ? (
-                      <Button 
-                        asChild 
+                      <Button
+                        asChild
                         size="sm"
                         className="flex-1 glass-subtle hover:glass hover:glow-primary border-0 bg-gradient-to-r from-primary/80 to-accent/80 hover:from-primary hover:to-accent transition-all duration-300"
                       >
@@ -138,8 +108,8 @@ const ProjectsSection = () => {
                         </a>
                       </Button>
                     ) : (
-                      <Button 
-                        disabled 
+                      <Button
+                        disabled
                         size="sm"
                         className="flex-1 opacity-50 cursor-not-allowed"
                       >
@@ -147,10 +117,10 @@ const ProjectsSection = () => {
                         Ver ao Vivo
                       </Button>
                     )}
-                    
-                    <Button 
-                      variant="outline" 
-                      asChild 
+
+                    <Button
+                      variant="outline"
+                      asChild
                       size="sm"
                       className="flex-1 glass-subtle hover:glass hover:glow-primary border-primary/20 hover:border-primary/40 transition-all duration-300"
                     >
