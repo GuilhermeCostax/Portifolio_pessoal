@@ -16,7 +16,7 @@ O servidor abre em `http://localhost:8080`. O build estático é gerado em `dist
 
 ```bash
 npm run check     # lint, TypeScript estrito, testes e build
-npm run test      # validação do contato
+npm run test      # validação do contato e geração de SEO
 npm run build
 npm run preview
 ```
@@ -56,14 +56,18 @@ Sem configuração, o site oferece contato direto por email. A chave pública e 
 
 ## Publicar
 
-Execute `npm run check` e publique `dist/` em um host de arquivos estáticos. Configure o host para servir `index.html` nas rotas da SPA, incluindo `/servicos`. Configure as variáveis de contato antes do build. Não versionar `node_modules`, `.vite`, `.env.local` ou `dist`.
+Execute `npm run check` e publique `dist/` em um host de arquivos estáticos. Na Vercel, `vercel.json` encaminha `/servicos` ao HTML próprio dessa página e mantém o fallback da SPA. Em outros hosts, preserve esse encaminhamento e os arquivos estáticos. Configure as variáveis de contato antes do build. Não versionar `node_modules`, `.vite`, `.env.local` ou `dist`.
+
+O endereço oficial é https://portifolio-pessoal-rust.vercel.app/. Títulos, descrições e domínio ficam em `src/data/seo.ts`. O build gera HTML com metadados próprios para home e serviços, `sitemap.xml` e `robots.txt`; o hook mantém os metadados ao navegar no site. Isso gera os metadados estáticos, não o conteúdo React completo. Rotas desconhecidas recebem `noindex` após o JavaScript executar, mas o fallback continua com resposta HTTP 200.
+
+A imagem de compartilhamento está em `public/social-preview.png` (1200 × 630), com fonte editável em `design/social-preview.svg`. Ao alterar o desenho, exporte novamente o PNG nessas dimensões.
 
 O workflow em `.github/workflows/ci.yml` executa as verificações em pushes e pull requests. Os testes locais de validação não confirmam entrega de email; esse fluxo depende da configuração da conta e de um teste real autorizado.
 
 ## Pendências de conteúdo
 
 - Adicionar um currículo atualizado antes de oferecer seu download.
-- Definir o domínio público para canonical e sitemap.
 - Confirmar a entrega do EmailJS com a conta configurada.
+- Planejar migrações das dependências com advisories remanescentes; veja o registro da segunda rodada na análise.
 
 Consulte [ANALISE_PROJETO.md](ANALISE_PROJETO.md) para o diagnóstico original e o registro das melhorias.

@@ -4,7 +4,7 @@ Análise realizada em 6 de outubro de 2026. O diagnóstico abaixo registra a sit
 
 ## Correções aplicadas — primeira rodada
 
-- Dependências e caches retirados do índice do Git, preservando os arquivos locais. O grande número de exclusões staged é esperado; não houve commit nem reescrita de histórico.
+- Dependências e caches retirados do índice do Git, preservando os arquivos locais. A primeira rodada foi publicada no commit `fc59170`, sem reescrita de histórico.
 - Manifesto e lockfile sincronizados, Node definido em `.nvmrc`, instalação limpa com `npm ci` validada.
 - TypeScript estrito e verificação de imports/variáveis sem uso ativados. Lint sem erros nem avisos.
 - Scroll ao topo limitado à mudança de rota; no navegador, o scroll ficou em 1.756 px antes e depois de digitar no formulário de serviços.
@@ -26,7 +26,19 @@ Análise realizada em 6 de outubro de 2026. O diagnóstico abaixo registra a sit
 - Revisar a atualização das dependências com advisories antes de publicação. A remoção de bibliotecas sem uso não significa que todos os advisories foram resolvidos.
 - Medir Lighthouse/Core Web Vitals em produção e aprofundar a revisão editorial dos projetos e serviços. As extrações de cards/títulos/fundos restantes podem ser feitas quando reduzirem repetição de maneira clara.
 
-## Diagnóstico
+## Correções aplicadas — segunda rodada
+
+- Domínio informado pelo proprietário: `https://portifolio-pessoal-rust.vercel.app/`. SEO centralizado em `src/data/seo.ts`, com título, descrição, canonical e Open Graph/Twitter específicos por página.
+- `scripts/generate-seo.mjs` gera o HTML de home e serviços com os metadados já presentes, além de sitemap e robots. O hook acompanha a navegação da SPA. Não há pré-renderização completa do conteúdo React; a 404 recebe `noindex` no cliente, mas ainda usa o fallback HTTP 200.
+- `vercel.json` encaminha serviços ao HTML correspondente e preserva o fallback da SPA. Referência: [configuração de rewrites da Vercel](https://vercel.com/docs/project-configuration/vercel-json). O encaminhamento em produção remota depende do próximo deploy; foi validado o build local, não um deploy novo.
+- Imagem própria de compartilhamento de 1200 × 630 px em `public/social-preview.png` (86.166 bytes), com SVG editável em `design/social-preview.svg`. Referências ao Lovable removidas dos metadados.
+- Ajustado espaço da hero e fluxo do indicador de rolagem para evitar sobreposição com links sociais; subtítulo passou a parágrafo, mantendo a hierarquia de títulos.
+- Configuração EmailJS agora rejeita também placeholders `your_` da amostra; copiar `.env.example` sem preencher os valores mantém o contato direto por email.
+- Atualizações compatíveis do lockfile: `npm audit` caiu de 34 avisos (27 altos, 5 moderados, 2 baixos) para 13 (6 altos e 7 moderados). Permanecem advisories no Vite/esbuild, na cadeia Tailwind (braces, micromatch, chokidar e postcss-selector-parser) e no React Router. Os avisos incluem dependências e seus consumidores; não representam 13 falhas distintas da aplicação. Não foi aplicado `npm audit fix --force`.
+- Próxima prioridade técnica: migrar e validar Vite/plugin SWC e React Router, depois revisar a cadeia de build do Tailwind. Os avisos do Router exigem revisão também em dependências usadas no navegador; os de build não devem ser tratados como inexistentes apenas por serem de desenvolvimento.
+- Verificação: lint sem erros, TypeScript estrito, sete testes e build aprovados. JS principal de 265,97 kB / 82,65 kB gzip, CSS de 52,61 kB / 9,01 kB gzip. HTTP local entregou home, serviços, imagem, robots e sitemap com status 200; títulos distintos confirmados no HTML sem JavaScript. No navegador, canonical acompanhou serviços e a 404 recebeu `noindex` sem canonical. Mobile 390 × 844 px com largura observada de 382 px, sem overflow horizontal. Nenhuma mensagem de email enviada.
+
+## Diagnóstico inicial
 
 ### Resultado da execução
 

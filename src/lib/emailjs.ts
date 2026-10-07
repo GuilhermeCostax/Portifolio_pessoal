@@ -6,7 +6,7 @@ const config = {
   publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY?.trim() || '',
 };
 export const isEmailJSConfigured = (): boolean =>
-  Object.values(config).every(value => value.length > 0 && !value.startsWith('seu_') && !value.startsWith('sua_'));
+  Object.values(config).every(value => value.length > 0 && !/^(your_|seu_|sua_)/.test(value));
 
 export interface ContactFormData { name: string; email: string; message: string; }
 

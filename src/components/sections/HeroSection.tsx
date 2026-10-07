@@ -13,7 +13,7 @@ const HeroSection = () => {
     <section
       ref={ref}
       id="inicio"
-      className={`relative min-h-screen flex items-center justify-center px-4 sm:px-6 pt-24 overflow-hidden aurora-mesh transition-all duration-1000 ${
+      className={`relative min-h-screen flex items-center justify-center px-4 sm:px-6 pt-32 pb-12 overflow-hidden aurora-mesh transition-all duration-1000 ${
         hasIntersected ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
     >
@@ -38,11 +38,11 @@ const HeroSection = () => {
 
         {/* Subtitle with improved spacing */}
         <div className={`mb-12 ${animationClasses.fadeInUp}`} style={{ animationDelay: '200ms' }}>
-          <h2 className="text-lg sm:text-xl md:text-2xl text-muted-foreground font-medium max-w-3xl mx-auto px-4 leading-relaxed">
+          <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground font-medium max-w-3xl mx-auto px-4 leading-relaxed">
             Desenvolvedor Full-Stack especializado em
             <span className="text-primary font-semibold"> React, Next.js & Python </span>
             com FastAPI
-          </h2>
+          </p>
         </div>
 
         {/* Enhanced CTA button */}
@@ -80,7 +80,7 @@ const HeroSection = () => {
         </div>
 
         {/* Scroll indicator */}
-        <div className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 ${animationClasses.fadeInUp}`} style={{ animationDelay: '800ms' }}>
+        <div className={`mt-10 ${animationClasses.fadeInUp}`} style={{ animationDelay: '800ms' }} aria-hidden="true">
           <div className="flex flex-col items-center space-y-2">
             <span className="text-xs text-muted-foreground font-medium tracking-wider uppercase">Role para baixo</span>
             <div className="w-6 h-10 border-2 border-muted-foreground/30 rounded-full flex justify-center">
